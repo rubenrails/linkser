@@ -62,6 +62,8 @@ module Linkser
             img_src = img.get_attribute("src")
             next unless img_src
             img_src.strip!
+            img_src = URI.encode(img_src) # Escape default unsafe characters first
+            img_src = URI.encode(img_src, "[]") # Escape square brackets only
             img_src = complete_url img_src, last_url
             img_uri = URI.parse(img_src)
             img_ext = File.extname(img_uri.path)
